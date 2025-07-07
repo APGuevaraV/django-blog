@@ -1,27 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Título de la página</title>
-</head>
-<body>
+{% extends "blog/base.html" %}
+{% block title %} Blog {% endblock  %} 
 
-  <main>
-    <h1>Bienvenido a mi sitio web</h1>
-    <h2>Archivo personal de mis entradas</h2>
-    <p>Estas son las entradas más recientes</p>
-    {% for post in posts %}
-        <div>
-            <h3>{{post.title}}</h3>
-            <span class="date">{{ post.created }}</span>
-            <p>{{ post.content }}</p>
+{% block content %}
+  <p>Estas son las entradas más recientes</p>
+      {% for post in posts %}
+          <div>
+              <h3>{{post.title}}</h3>
+              <span class="date">{{ post.created |date:"SHORT_DATE_FORMAT" }}</span>
+              <p>{{ post.content | truncatewords:"20"}}</p>
+              <a href="{% url 'post' id=post.id %}">Leer más</a>
 
-        </div>
-    {% endfor %}
-  </main>
-
-
- 
-</body>
-</html>
+          </div>
+      {% endfor %}
+{% endblock  %} 
